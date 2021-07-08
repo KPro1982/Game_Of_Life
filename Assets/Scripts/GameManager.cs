@@ -97,6 +97,7 @@ public class GameManager : MonoBehaviour
     {
         var gObj = Instantiate(cellPrefab, _position, Quaternion.identity);
         var cellScript = (Cell) gObj.GetComponent("Cell");
+        cellScript.Refesh();
         cellPop.Add(gObj);
     }
 

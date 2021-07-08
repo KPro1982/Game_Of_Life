@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class AdjacentCellArray
 {
-    public delegate bool AdjacentMethod(Vector2Int arrayPos, Vector3 _relativePosition);
+    public delegate void AdjacentMethod(Vector2Int arrayPos, Vector3 _relativePosition);
     
     public CellElement[][] Cells = new CellElement[3][];
 
@@ -18,15 +18,14 @@ public class AdjacentCellArray
         IterateAdjacent(InitializeArray);
     }
 
-    bool InitializeArray(Vector2Int arrayPos, Vector3 relativePos)
+    void InitializeArray(Vector2Int arrayPos, Vector3 relativePos)
     {
         Cells[arrayPos.x][arrayPos.y] = new CellElement();
-        return true;
     }
 
     public Cell ParentCell { get; set; }
 
-    public void IterateAdjacent()
+    public void RefreshAdjacent()
     {
         IterateAdjacent(CheckAdjacent);
     }
@@ -43,15 +42,15 @@ public class AdjacentCellArray
             for (var ii = 0; ii < iiMax; ii++)
             {
                 arrayPos = new Vector2Int(i, ii);
-                x = i - 1;
+                y = i - 1;
 
                 if (i != 1)
                 {
-                    y = ii - 1;
+                    x = ii - 1;
                 }
                 else
                 {
-                    y = ii == 0 ? -1 : 1;
+                    x = ii == 0 ? -1 : 1;
                 }
 
                 relativePos = new Vector3(x, y, 0); // assumes 2D so z is not necessary
@@ -61,16 +60,20 @@ public class AdjacentCellArray
         }
     }
 
-    private bool CheckAdjacent(Vector2Int arrayPos, Vector3 relativePos)
+    private void CheckAdjacent(Vector2Int arrayPos, Vector3 relativePos)
     {
         var neighborPos = ParentCell.SnappedPosition + relativePos;
         if (!Helper.IsEmpty(neighborPos))
         {
             Cells[arrayPos.x][arrayPos.y].Cell = Helper.GetCell(neighborPos);
             Cells[arrayPos.x][arrayPos.y].EmptyValue = -1;
-            Debug.Log($"Has Cell: {arrayPos}");
         }
-
-        return true;
+        else
+        {
+            Cells[arrayPos.x][arrayPos.y].Cell = null;
+            Cells[arrayPos.x][arrayPos.y].EmptyValue = Helper.CountNeighbors(neighborPos,1);
+            Debug.Log($"Empty: {relativePos}, Value: {Cells[arrayPos.x][arrayPos.y].EmptyValue}");
+        }
+        
     }
 }

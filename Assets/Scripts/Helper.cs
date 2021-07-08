@@ -19,10 +19,10 @@ public  class Helper : MonoBehaviour
     {
         Collider[] _colliders;
         var neighborsIncludingItself = GetNeighbors(_position, _senseRadius, out _colliders);
-        return neighborsIncludingItself - 1;
+        return neighborsIncludingItself;
     }
 
-    public static bool IsEmpty(Vector3 _position) => CountNeighbors(_position, 0) == -1;
+    public static bool IsEmpty(Vector3 _position) => CountNeighbors(_position, 0) == 0;
 
     public static Cell GetCell(Vector3 _position)
     {
