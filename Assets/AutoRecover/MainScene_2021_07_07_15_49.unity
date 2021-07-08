@@ -1135,10 +1135,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db57d4c6d94948c44a4dae100ab322e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mustSnapOnGrid: 1
   cell: {fileID: 3922891953841781219, guid: 36dd72822d5d0204fbdce303a41ca96b, type: 3}
   initialPopulationRange: 25
-  initialPopulation: 300
+  initialPopulation: 0
 --- !u!1 &1671619677
 GameObject:
   m_ObjectHideFlags: 0

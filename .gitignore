@@ -11,8 +11,8 @@
 /[Mm]emoryCaptures/
 
 # Asset meta data should only be ignored when the corresponding asset is also ignored
-[Aa]ssets/Editor/**
-[Aa]ssets/Editor/*.meta
+/[Aa]ssets/Editor/**
+/[Aa]ssets/Editor/*.meta
 !/[Aa]ssets/**/*.meta
 
 
